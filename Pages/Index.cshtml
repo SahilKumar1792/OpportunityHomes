@@ -1,0 +1,140 @@
+﻿@page
+@model IndexModel
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Opportunity Homes";
+}
+
+
+
+
+
+<div class="Opportunity-page flex">
+    <div class="Opportunity-logo">
+        <div class="Opportunity-logoInner">
+            <img src="~/images/white-OHLogo.png" alt="Opportunity Homes">
+
+            <!-- <img src="images/white-OHLogo2.png" alt="Opportunity Homes"> -->
+            <h2 class="coming-soon">coming soon</h2>
+        </div>
+    </div>
+    <div class="Opportunity-info">
+        <div class="Opportunity-info-inner">
+            <div class="text-blue-500">
+                <h1 class="text-xl">Be the First to Transform Your Supply Chain</h1>
+                <p class="mt-2 text-blue-500 opacity-70">Don't miss your chance to get Ravnized - reserve your spot now!</p>
+            </div>
+            <form  id="waitlistForm" method="post">
+            <div class="flex OpportunityInputSection">
+                <div class="theme-row flexRow-Two">
+                    <div class="theme-group">
+                            <label  class="theme-label text-red" for="firstName">First Name</label>
+                            <input type="text" class="theme-control" id="firstName" name="firstName" required />
+                            <p class="text-red error d-none">Required</p>
+                    </div>
+                    <div class="theme-group">
+                            <label  class="theme-label" for="lastName">Last Name</label>
+                            <input type="text" class="theme-control" id="lastName" name="lastName" required />
+                            <p class="text-red error d-none">Required</p>
+                    </div>
+                </div>
+                <div class="theme-row">
+                    <div class="theme-group">
+                        <label  class="theme-label" for="email">Work Email</label>
+                            <input type="Email" placeholder="name@company.com" class="theme-control" id="email" name="email" required />
+                            <p class="text-red error d-none">Required</p>
+                    </div>
+                </div>
+                <div class="theme-row">
+                    <div class="theme-group">
+                        <label  class="theme-label"  for="companyName">Company Name</label>
+                            <input type="text" class="theme-control" id="companyName" name="companyName" required />
+                            <p class="text-red error d-none">Required</p>
+                    </div>
+                </div>
+                <div class="theme-row">
+                    <div class="theme-group">
+                            <label class="theme-label" for="companyName">Company Website <span class="text-sm opacity-40 Optional">Optional</span></label>
+                            <input type="text" class="theme-control" id="companyWebsite" name="companyWebsite" />
+                    </div>
+                </div>
+
+                    <input type="hidden" name="recaptchaResponse" id="recaptchaResponse">
+
+                <div class="theme-row mt-10">
+                    <div class="theme-group">
+                        <button type="button" class="btnWaitlist">Join The Waitlist</button>
+                    </div>
+                </div>
+
+
+                    <div id="thankYouMessage" class="d-none text-green-500 mt-4 text-center">
+                        Thank you for joining the waitlist! You'll be the first to know when we're ready to launch.
+                    </div>
+
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    <script src="https://www.google.com/recaptcha/api.js?render=@Model._recaptchaSiteKey"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            // Submit the form using AJAX
+            $('#waitlistForm').on('submit', function (e) {
+                e.preventDefault(); // Prevent the form from submitting normally
+
+                const submitButton = document.getElementById('submitButton');
+                const thankYouMessage = document.getElementById('thankYouMessage');
+                const recaptchaErrorMessage = document.getElementById('recaptchaErrorMessage'); // Element to show reCAPTCHA error
+
+                // Clear previous errors
+                submitButton.disabled = true;
+                submitButton.textContent = "Please wait...";
+                recaptchaErrorMessage.classList.add('d-none'); // Hide the error message initially
+
+                // Execute reCAPTCHA to get a score
+                    grecaptcha.execute('@Model.FormInput.', { action: 'submit' }).then(function (token) {
+                    // Send the token to the server
+                    $('#recaptchaResponse').val(token);
+
+                    // Make AJAX request to submit the form
+                    var formData = $('#waitlistForm').serialize(); // Serialize form data
+                    $.ajax({
+                        type: "POST",
+                        url: "/Index",
+                        data: formData,
+                        success: function (response) {
+                            if (response.isSuccess) {
+                                submitButton.disabled = false;
+                                submitButton.textContent = "You are on the Waitlist!";
+                                thankYouMessage.classList.remove('d-none');
+                            } else {
+                                if (response.message === "Please validate the reCAPTCHA.") {
+                                    // Show the reCAPTCHA v2 if the score was too low
+                                    document.getElementById('recaptchaV2').classList.remove('d-none');
+                                    recaptchaErrorMessage.classList.remove('d-none'); // Show the reCAPTCHA error message
+                                } else {
+                                    alert('An error occurred: ' + response.message);
+                                }
+                            }
+                        },
+                        error: function (error) {
+                            alert('An error occurred: ' + error);
+                        }
+                    });
+                });
+            });
+        });
+
+
+    </script>
+} 
