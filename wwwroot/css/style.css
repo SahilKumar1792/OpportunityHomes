@@ -35,10 +35,10 @@ body {
 
 
 .Opportunity-logoInner img { max-width: 290px; }
-.Opportunity-page { min-height: 100vh; justify-content: center; align-items: center; }
+.Opportunity-page { min-height: 100vh; justify-content: center; }
 .flex {display: flex;flex-wrap: wrap;}
 .Opportunity-logo {flex: 1;min-height: 100vh;background: #252c3e;display: flex;align-items: center;justify-content: center;}
-.Opportunity-info {flex: 1;height: 100vh;background: #f1efeb;display: flex;align-items: center;justify-content: center;padding:1rem;}
+.Opportunity-info {flex: 1;min-height: 100vh;background: #f1efeb;display: flex;align-items: center;justify-content: center;padding:1rem;}
 
 .Opportunity-info-inner { max-width: 510px;display: flex;flex-direction: column;gap: 2rem;}
 .OpportunityInputSection { flex-direction: column;row-gap: 1.5rem; }
@@ -62,7 +62,10 @@ body {
 .opacity-40 {opacity: .4;}
 .text-sm {font-size: .875rem;line-height: 1.2;}
 .Optional {padding-left: 20px;}
-
+#thankYouMessage { background: #daf4f0; padding: 10px; font-size: 14px; color: #099885; border: 1px solid #099885; border-radius: 4px; display: flex; align-items: center; gap: 10px; }
+#thankYouMessage svg { fill: #099885; }
+#thankYouMessage p { margin: 0; }
+#submitButton:disabled {opacity: 0.6;cursor: no-drop;}
 @media screen and (max-width: 991px) {
     .Opportunity-logo { min-height: 210px; width: 100%; height: inherit; }
     .Opportunity-page { flex-direction: column; }
