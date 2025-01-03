@@ -130,9 +130,15 @@ namespace OpportunityHomes.Pages
         {
             try
             {
-                // Create the directory if it doesn't exist
+                // Define the file path
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Data", "submissions.csv");
 
+                // Ensure the directory exists
+                var directoryPath = Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directoryPath))
+                {
+                    Directory.CreateDirectory(directoryPath);
+                }
                 // Check if the file exists
                 if (!System.IO.File.Exists(filePath))
                 {
