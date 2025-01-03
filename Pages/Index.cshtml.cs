@@ -59,7 +59,7 @@ namespace OpportunityHomes.Pages
             try
             {
                 SaveSubmissionToCsv();
-                SaveDataInTxtFormat();
+                //SaveDataInTxtFormat();
                 //SaveSubmissionToExcel();
                 return new JsonResult(new { isSuccess = true });
             }
