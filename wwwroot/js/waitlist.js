@@ -6,12 +6,13 @@ $(function () {
         isSubmitClicked = true;
         if (validateForm()) {
             const submitButton = document.getElementById('submitButton');
+            const themeBtnLoader = document.getElementById('themeBtn-loader');
             const thankYouMessage = document.getElementById('thankYouMessage');
             const recaptchaErrorMessage = document.getElementById('recaptchaErrorMessage'); // Element to show reCAPTCHA error
 
             // Clear previous errors
             submitButton.disabled = true;
-            submitButton.textContent = "Please wait...";
+            themeBtnLoader.classList.remove('d-none');
             recaptchaErrorMessage.classList.add('d-none'); // Hide the error message initially
 
             // Execute reCAPTCHA to get a score
@@ -25,7 +26,11 @@ $(function () {
                     type: "POST",
                     url: "/Index",
                     data: formData,
+                    complete: function () {
+                        themeBtnLoader.classList.add('d-none');
+                    },
                     success: function (response) {
+                        
                         if (response.isSuccess) {
                             submitButton.disabled = true;
                             submitButton.textContent = "You are on the Waitlist!";
@@ -113,7 +118,6 @@ function validateForm() {
 
         if (input.value.trim() === "") {
             // Field is invalid
-
 
             if (!label.classList.contains('text-red')) {
                 label.classList.add('text-red'); // Highlight the label with red text

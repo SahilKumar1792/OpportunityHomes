@@ -45,13 +45,47 @@ body {
 
 .flexRow-Two { display: flex; flex-wrap: wrap; gap: 12px; }
 .theme-group { display: flex; flex-direction: column; }
-.theme-control { border: 1px solid #e9eaec; font-size: .875rem; line-height: 1.2; width: 100%; padding: .75rem; }
+.theme-control {
+    border: 1px solid #e9eaec;
+    font-size: .875rem;
+    line-height: 1.2;
+    width: 100%;
+    padding: .67rem;
+    border-radius: 6px;
+}
+.theme-loader {
+    background: #596e6b;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    height: 40.8px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.btn-outer {
+    position: relative;
+    border-radius: 6px;
+}
 .flexRow-Two .theme-group { flex: 1; }
 .theme-label { margin-bottom: 5px;font-size: 1rem; }
 .text-xl { font-size: 1.5rem;  font-family: var(--secondryFontFamily); color: var(--default-color);margin: 0; }
 .opacity-70 {opacity: .7;}
 .text-blue-500 p {margin: 10px 0 0 0;}
-.btnWaitlist {background: #596e6b;border: 0;font-size: .875rem;line-height: 1.2;font-weight: 800;color:#ffffff;padding: .75rem;border-radius: 7px;}
+.btnWaitlist {
+    background: #596e6b;
+    border: 0;
+    font-size: .875rem;
+    line-height: 1.2;
+    font-weight: 800;
+    color: #ffffff;
+    padding: .75rem;
+    border-radius: 7px;
+    cursor: pointer;
+}
 .btnWaitlist:hover {background: #3f4e4c;}
 .mt-10 {margin-top: 10px;}
 .coming-soon { color: #ffffff; margin: 20px 0 0 0; text-align: center; font-size: 2rem; font-family: var(--secondryFontFamily); }
@@ -62,9 +96,23 @@ body {
 .opacity-40 {opacity: .4;}
 .text-sm {font-size: .875rem;line-height: 1.2;}
 .Optional {padding-left: 20px;}
-#thankYouMessage { background: #daf4f0; padding: 10px; font-size: 14px; color: #099885; border: 1px solid #099885; border-radius: 4px; display: flex; align-items: center; gap: 10px; }
+#thankYouMessage {
+    background: #eef6f2;
+    font-size: 14px;
+    color: #3e7356;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: normal;
+    padding: 5px;
+}
 #thankYouMessage svg { fill: #099885; }
-#thankYouMessage p { margin: 0; }
+    #thankYouMessage p {
+        margin: 0;
+        line-height: 20px;
+        font-weight: 500;
+    }
 #submitButton:disabled {opacity: 0.6;cursor: no-drop;}
 @media screen and (max-width: 991px) {
     .Opportunity-logo { min-height: 210px; width: 100%; height: inherit; }
