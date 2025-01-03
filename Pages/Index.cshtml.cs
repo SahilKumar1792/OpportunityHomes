@@ -143,11 +143,11 @@ namespace OpportunityHomes.Pages
                 if (!System.IO.File.Exists(filePath))
                 {
                     // Write the header to the file if it doesn't exist
-                    System.IO.File.AppendAllText(filePath, "\"FirstName\",\"LastName\",\"Email\",\"CompanyName\",\"CompanyWebsite\"" + Environment.NewLine);
+                    System.IO.File.AppendAllText(filePath, "\"TimesStamp\",\"FirstName\",\"LastName\",\"Email\",\"CompanyName\",\"CompanyWebsite\"" + Environment.NewLine);
                 }
-
+                string timestamp = DateTime.UtcNow.ToString("MM/dd/yyyy hh:mm tt", System.Globalization.CultureInfo.InvariantCulture);
                 // Write the data to the file (each new submission is appended)
-                System.IO.File.AppendAllText(filePath, $"\"{FormInput.FirstName}\",\"{FormInput.LastName}\",\"{FormInput.Email}\",\"{FormInput.CompanyName}\",\"{FormInput.CompanyWebsite}\"" + Environment.NewLine);
+                System.IO.File.AppendAllText(filePath, $"\"{timestamp}\",\"{FormInput.FirstName}\",\"{FormInput.LastName}\",\"{FormInput.Email}\",\"{FormInput.CompanyName}\",\"{FormInput.CompanyWebsite}\"" + Environment.NewLine);
             }
             catch (Exception)
             {
