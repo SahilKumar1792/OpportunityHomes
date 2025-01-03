@@ -1,8 +1,9 @@
-﻿$(function () {
+﻿var isSubmitClicked = false;
+$(function () {
     // Submit the form using AJAX
     $('#waitlistForm').on('submit', function (e) {
         e.preventDefault(); // Prevent the form from submitting normally
-
+        isSubmitClicked = true;
         if (validateForm()) {
             const submitButton = document.getElementById('submitButton');
             const thankYouMessage = document.getElementById('thankYouMessage');
@@ -47,46 +48,53 @@
     });
 });
 function validateField(input) {
-    const errorMessage = input.nextElementSibling; // For the required error message
-    const validEmailMessage = errorMessage.nextElementSibling; // For the valid email error message
-    const label = input.previousElementSibling; // For the label element
-    input.value = input.value.replace(/['\"]/g, '');
-    // Check if the field is required and empty
-    if (input.value.trim() === "") {
-        // Add class only if not already present
-        if (!label.classList.contains('text-red')) {
-            label.classList.add('text-red'); // Highlight the label with red text
-        }
+    if (isSubmitClicked) {
 
-        if (errorMessage.classList.contains('d-none')) {
-            errorMessage.classList.remove('d-none'); // Show the required error message
-        }
-
-        if (!validEmailMessage.classList.contains('d-none')) {
-            validEmailMessage.classList.add('d-none'); // Hide the valid email error message
-        }
-    } else {
-        // Remove class only if it exists
-        if (label.classList.contains('text-red')) {
-            label.classList.remove('text-red'); // Remove red text from the label
-        }
-
-        if (!errorMessage.classList.contains('d-none')) {
-            errorMessage.classList.add('d-none'); // Hide the required error message
-        }
-
-        // If the field is an email input, validate the email format
-        if (input.name === "email") {
-
-
-            if (!isValidEmailAddress(input.value)) {
-                if (validEmailMessage.classList.contains('d-none')) {
-                    validEmailMessage.classList.remove('d-none'); // Show invalid email error message
-                }
+        const errorMessage = input.nextElementSibling; // For the required error message
+        const validEmailMessage = errorMessage.nextElementSibling; // For the valid email error message
+        const label = input.previousElementSibling; // For the label element
+        input.value = input.value.replace(/['\"]/g, '');
+        // Check if the field is required and empty
+        if (input.value.trim() === "") {
+            // Add class only if not already present
+            if (!label.classList.contains('text-red')) {
+                label.classList.add('text-red'); // Highlight the label with red text
             }
-            else {
-                if (!validEmailMessage.classList.contains('d-none')) {
-                    validEmailMessage.classList.add('d-none'); // Hide the invalid email error message if valid
+
+            if (errorMessage.classList.contains('d-none')) {
+                errorMessage.classList.remove('d-none'); // Show the required error message
+            }
+
+            if (!validEmailMessage.classList.contains('d-none')) {
+                validEmailMessage.classList.add('d-none'); // Hide the valid email error message
+            }
+        } else {
+            // Remove class only if it exists
+            if (label.classList.contains('text-red')) {
+                label.classList.remove('text-red'); // Remove red text from the label
+            }
+
+            if (!errorMessage.classList.contains('d-none')) {
+                errorMessage.classList.add('d-none'); // Hide the required error message
+            }
+
+            // If the field is an email input, validate the email format
+            if (input.name === "email") {
+
+
+                if (!isValidEmailAddress(input.value)) {
+                    if (validEmailMessage.classList.contains('d-none')) {
+                        validEmailMessage.classList.remove('d-none'); // Show invalid email error message
+                    }
+                    if (!label.classList.contains('text-red')) {
+                        label.classList.add('text-red'); // Highlight the label with red text
+                    }
+
+                }
+                else {
+                    if (!validEmailMessage.classList.contains('d-none')) {
+                        validEmailMessage.classList.add('d-none'); // Hide the invalid email error message if valid
+                    }
                 }
             }
         }
@@ -122,6 +130,9 @@ function validateForm() {
             if (!isValidEmailAddress(input.value)) {
                 if (validEmailMessage.classList.contains('d-none')) {
                     validEmailMessage.classList.remove('d-none'); // Show invalid email error message
+                }
+                if (!label.classList.contains('text-red')) {
+                    label.classList.add('text-red'); // Highlight the label with red text
                 }
                 isValid = false;
             }
